@@ -6,11 +6,18 @@
 
     <link rel="stylesheet" href="https://use.typekit.net/pab8acp.css">
     <style>
+      html {
+        scroll-behavior: smooth;
+      }
+
       * {
         margin: 0;
         padding: 0;
         box-sizing: border-box;
+      }
 
+      body {
+        background-color: #000;
       }
 
       .background-image-container {
@@ -41,7 +48,7 @@
         grid-template-columns: 1fr 1fr;
         align-items: start;
         justify-content: space-between;
-        padding: 2vh 0 2vh 4vw;
+        padding: 2vh 0 2vh calc(4vw + 3.5rem);
         z-index: 2;
       }
 
@@ -83,16 +90,12 @@
 
 
 .legal-container {
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
+  position: static;
   text-align: center;
-  z-index: 3;
   width: 100%;
   color: white;
-  padding: 0.5vh 0;
-  margin-top: 4vh;
+  padding: 3vh 4vw;
+  background-color: #0e0905;
 }
 
       .legal-text {
@@ -101,24 +104,193 @@
 
       }
 
-      .buttons-bottom-center {
+      .out-now-container {
         position: absolute;
-        bottom: 8vh;
+        top: 96%;
         left: 50%;
-        transform: translateX(-50%);
-        display: grid;
-        gap: 2vh;
-        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-        width: 90%;
-        max-width: 1300px;
+        transform: translate(-50%, -50%);
         z-index: 2;
-        gap: 4vw;
-
+        width: 100%;
+        text-align: center;
       }
 
-      .buttons-bottom-center button {
-        padding: 2vh 2vw;
-        font-size: clamp(1rem, 2.5vw, 1.5rem);
+      .out-now-text {
+        font-family: "big-caslon-fb";
+        color: white;
+        font-size: clamp(0.9rem, 1.8vw, 1.5rem);
+        letter-spacing: 0.04em;
+      }
+
+      .out-now-text:hover {
+        letter-spacing: 0.06em;
+        color: #d495e9;
+      }
+
+      /* =========================================
+         SITE NAVIGATION
+         3-line hamburger, fixed top-left, stays
+         visible across every section. Click opens
+         a slide-out panel with Listen / Watch /
+         About Us / Contact.
+         ========================================= */
+
+      .hamburger-btn {
+        position: fixed;
+        top: 3vh;
+        left: 2vw;
+        z-index: 30;
+        width: 2.6rem;
+        height: 2rem;
+        background: rgba(0, 0, 0, 0.4);
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        padding: 0;
+      }
+
+      .hamburger-btn span {
+        position: absolute;
+        left: 0.5rem;
+        right: 0.5rem;
+        height: 2px;
+        background: white;
+        border-radius: 2px;
+        transition: all 0.3s ease;
+      }
+
+      .hamburger-btn span:nth-child(1) {
+        top: 0.55rem;
+      }
+
+      .hamburger-btn span:nth-child(2) {
+        top: 50%;
+        transform: translateY(-50%);
+      }
+
+      .hamburger-btn span:nth-child(3) {
+        bottom: 0.55rem;
+      }
+
+      .hamburger-btn.open span:nth-child(1) {
+        top: 50%;
+        transform: translateY(-50%) rotate(45deg);
+      }
+
+      .hamburger-btn.open span:nth-child(2) {
+        opacity: 0;
+      }
+
+      .hamburger-btn.open span:nth-child(3) {
+        bottom: 50%;
+        transform: translateY(50%) rotate(-45deg);
+      }
+
+      .nav-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.55);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+        z-index: 25;
+      }
+
+      .nav-overlay.open {
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .nav-panel {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        width: min(80vw, 340px);
+        background-color: #0e0905;
+        border-right: 0.8px solid rgba(255, 255, 255, 0.15);
+        transform: translateX(-100%);
+        transition: transform 0.35s ease;
+        z-index: 28;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        gap: 4vh;
+        padding: 4vh 10vw;
+      }
+
+      .nav-panel.open {
+        transform: translateX(0);
+      }
+
+      .nav-link {
+        color: white;
+        font-family: "big-caslon-fb";
+        font-size: clamp(1.3rem, 3vw, 2rem);
+        letter-spacing: 0.03em;
+        text-decoration: none;
+        transition: letter-spacing 0.3s ease, color 0.3s ease;
+      }
+
+      .nav-link:hover {
+        letter-spacing: 0.06em;
+        color: #d495e9;
+      }
+
+      /* =========================================
+         SECTION 3 — NEWSLETTER / "STAY IN THE LOOP"
+         ========================================= */
+
+      .newsletter-section {
+        width: 100vw;
+        padding: 3vh 4vw 1vh;
+        background-color: #0e0905;
+        background-image: linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)), rgb(0,0,0);
+        background-size: cover;
+        background-position: center;
+        text-align: center;
+        border-top: 0.5px solid rgba(255, 255, 255, 0.15);
+      }
+
+      .newsletter-label {
+        color: #ccc;
+        font-family: "big-caslon-fb";
+        font-size: clamp(0.7rem, 1.3vw, 0.95rem);
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        margin-bottom: 2.5vh;
+      }
+
+      .newsletter-form {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 1vw;
+        max-width: 460px;
+        margin: 0 auto;
+      }
+
+      .newsletter-input {
+        flex: 1 1 220px;
+        padding: 1.6vh 1.6vw;
+        border-radius: 50px;
+        border: 0.8px solid white;
+        background: transparent;
+        color: white;
+        font-family: "big-caslon-fb";
+        font-size: clamp(0.85rem, 1.4vw, 1rem);
+        outline: none;
+      }
+
+      .newsletter-input::placeholder {
+        color: #999;
+      }
+
+      .newsletter-submit {
+        flex: 0 0 auto;
+        padding: 1.6vh 2vw;
+        font-size: clamp(0.85rem, 1.4vw, 1rem);
         background-color: transparent;
         color: white;
         border: 0.8px solid white;
@@ -126,44 +298,93 @@
         cursor: pointer;
         transition: all 0.3s ease;
         font-family: "big-caslon-fb";
-        width: 100%;
         letter-spacing: 0.03em;
       }
 
-      .buttons-bottom-center button:hover {
+      .newsletter-submit:hover {
         background-color: #d495e9;
-        filter: brightness(1);
-        transform: scale(1.1);
+        transform: scale(1.05);
         letter-spacing: 0.05em;
       }
 
-      @media (max-width: 600px) {
-      .buttons-bottom-center {
-        bottom: 12vh; /* Moves buttons higher */
-        grid-template-columns: 90vw; /* Stack in one column */
-        gap: 3vh; /* Adjust vertical gap */
-        transition: ease 0.3s;
+      /* =========================================
+         SECTION — ABOUT US
+         50/50 split: text on the left, photo on
+         the right. The photo's inner edge (facing
+         the text) fades to white so it blends
+         rather than showing a hard border. Linked
+         from the "About Us" nav link, scrolls into
+         view smoothly.
+         ========================================= */
+
+      .about-section {
+        width: 100vw;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        background-color: #ffffff;
+        border-top: 0.5px solid rgba(255, 255, 255, 0.15);
       }
+
+      .about-text-box {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 8vh 5vw;
       }
 
-      @media (min-width: 600px) {
-  .buttons-bottom-center {
-    bottom: 10vh;
-    grid-template-columns: repeat(2, 1fr);
-    transition: ease 0.3s;
-  }
-}
+      .about-text {
+        max-width: 600px;
+        color: #0e0905;
+        font-family: "big-caslon-fb";
+        font-size: clamp(0.95rem, 1.4vw, 1.25rem);
+        line-height: 1.7;
+        letter-spacing: 0.01em;
+      }
 
-@media (min-width: 900px) {
-  .buttons-bottom-center {
-    bottom: 8vh;
-    grid-template-columns: repeat(4, 1fr);
-    transition: ease 0.3s;
-  }
-}
+      .about-image-box {
+        position: relative;
+        min-height: 60vh;
+        overflow: hidden;
+      }
 
+      .about-photo {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: 70% center;
+        display: block;
+        transform: scale(1.75);
+      }
 
+      /* fades the left (inner) edge of the photo to white */
+      .about-image-box::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to right, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 25%);
+        pointer-events: none;
+      }
 
+      @media (max-width: 800px) {
+        .about-section {
+          grid-template-columns: 1fr;
+        }
+
+        .about-image-box {
+          min-height: 45vh;
+          order: -1;
+        }
+
+        /* on mobile the photo stacks above the text, so fade the
+           bottom (inner) edge instead of the left edge */
+        .about-image-box::after {
+          background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 45%, rgba(255, 255, 255, 1) 100%);
+        }
+
+        .about-text-box {
+          padding: 6vh 6vw;
+        }
+      }
 
     </style>
   </head>
@@ -171,6 +392,7 @@
  
   <body>
    
+    <section id="#home">
     <div class="background-image-container">
       <img class="background-image" src="images/IMG_1349.jpg">
       <div class="music-update">
@@ -187,23 +409,91 @@
           <div class="social-links">
             <a href="https://www.instagram.com/mylesxmalcolm/?hl=en" target="_blank"><img class="insta-button" src="images/icons8-instagram-32.png"></a>
             <a href="https://www.youtube.com/channel/UCMNDcyTz_XeyB3UFG1r49sQ" target="_blank"><img class="youtube-button" src="images/icons8-youtube-50.png"></a>
-            <a href="tiktok.com" target="_blank"><img class="tiktok-button" src="images/icons8-tiktok-36.png"></a>
+            <a href="https://www.tiktok.com/@mylesxmalcolm?_t=ZP-8vqKU3pa7O2&_r=1" target="_blank"><img class="tiktok-button" src="images/icons8-tiktok-36.png"></a>
           </div>
         </div>
   
       </div>
-  
-      <div class="buttons-bottom-center">
-        <a href="https://linktr.ee/mylesxmalcolm?fbclid=PAZXh0bgNhZW0CMTEAAaYfwvEaKAt-orDlPaFPqdXTN2PBXzLtTvFfkAyuvPIQ0zpzLtVjfsetNHI_aem_IU5seLdTXPtAQtDRXX0BTw" target="_blank"><button>New Music</button></a>
-        <button>Merch</button>
-        <button>Shows</button>
-        <button>Connect</button>
-      </div>
-      <div class="legal-container">
-        <p class="legal-text">© 2025 MxM MUSIC ENTERTAINMENT. ALL RIGHTS RESERVED. | TERMS AND CONDITIONS | PRIVACY POLICY | HOW WE USE YOUR DATA | YOUR CALIFORNIA PRIVACY RIGHTS | DO NOT SELL MY PERSONAL INFORMATION | SEND US FEEDBACK</p>
+
+      <div class="out-now-container">
+        <p class="out-now-text">'Delusions' Out Now</p>
       </div>
     </div>
-  
+  </section>
+
+  <!-- =========================================
+       SITE NAVIGATION
+       Hamburger toggles the overlay + slide-out
+       panel via the script at the bottom of the
+       page. Links carry the same destinations the
+       old button grid used.
+       ========================================= -->
+  <button id="hamburger-btn" class="hamburger-btn" aria-label="Open menu">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+
+  <div id="nav-overlay" class="nav-overlay"></div>
+
+  <nav id="nav-panel" class="nav-panel">
+    <a class="nav-link" href="https://linktr.ee/mylesxmalcolm?fbclid=PAZXh0bgNhZW0CMTEAAaYfwvEaKAt-orDlPaFPqdXTN2PBXzLtTvFfkAyuvPIQ0zpzLtVjfsetNHI_aem_IU5seLdTXPtAQtDRXX0BTw" target="_blank">Listen</a>
+    <a class="nav-link" href="#Merch">Watch</a>
+    <a class="nav-link" href="#about-section">About</a>
+    <a class="nav-link" href="mailto:contact@mylesxmalcolm.com">Contact</a>
+  </nav>
+
+  <!-- =========================================
+       SECTION — ABOUT US
+       ========================================= -->
+  <section id="about-section" class="about-section">
+    <div class="about-text-box">
+      <p class="about-text">Twin brothers Myles and Malcolm, raised outside San Francisco, shifted from college football dreams to music after life-changing injuries. Introduced to production by a cousin in high school, they immersed themselves in mixing, mastering, and songwriting. Though attending different colleges in Southern California, they stayed connected through music. Their debut EP, "Differences," was written, recorded, and released from two separate dorm rooms — a testament to their resilience and creative bond. Through their sound, they turn pain into purpose, transforming setbacks into sonic stories that reflect honesty, growth, and the journey of healing through art.</p>
+    </div>
+    <div class="about-image-box">
+      <img class="about-photo" src="images/bio-photo.jpg">
+    </div>
+  </section>
+
+  <!-- =========================================
+       SECTION 3 — NEWSLETTER
+       ========================================= -->
+  <section id="newsletter-section" class="newsletter-section">
+    <p class="newsletter-label">Stay In The Loop</p>
+    <form class="newsletter-form">
+      <input type="email" class="newsletter-input" placeholder="Enter your email" required>
+      <button type="submit" class="newsletter-submit">Submit</button>
+    </form>
+  </section>
+
+  <div class="legal-container">
+    <p class="legal-text">© 2025 MxM MUSIC ENTERTAINMENT. ALL RIGHTS RESERVED. | TERMS AND CONDITIONS | PRIVACY POLICY | HOW WE USE YOUR DATA | YOUR CALIFORNIA PRIVACY RIGHTS | DO NOT SELL MY PERSONAL INFORMATION | SEND US FEEDBACK</p>
+  </div>
+
+  <script>
+    const hamburgerBtn = document.getElementById('hamburger-btn');
+    const navPanel = document.getElementById('nav-panel');
+    const navOverlay = document.getElementById('nav-overlay');
+
+    function toggleMenu() {
+      hamburgerBtn.classList.toggle('open');
+      navPanel.classList.toggle('open');
+      navOverlay.classList.toggle('open');
+    }
+
+    function closeMenu() {
+      hamburgerBtn.classList.remove('open');
+      navPanel.classList.remove('open');
+      navOverlay.classList.remove('open');
+    }
+
+    hamburgerBtn.addEventListener('click', toggleMenu);
+    navOverlay.addEventListener('click', closeMenu);
+
+    document.querySelectorAll('.nav-link').forEach(function (link) {
+      link.addEventListener('click', closeMenu);
+    });
+  </script>
 
   </body>
   </html>
